@@ -46,11 +46,16 @@ export default class extends Controller {
       return
     }
 
-    this.form
-      .querySelector(
-        'input[type="text"], input[type="email"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"],input[type="url"]'
-      )
-      .focus()
+    const firstInputSelector = [
+      "text",
+      "email",
+      "password",
+      "search",
+      "tel",
+      "url",
+    ].map(type => `input[type="${type}"]:invalid`)
+
+    this.form.querySelector(firstInputSelector.join(",")).focus()
   }
 
   toggleDisableOnSubmitButton(error) {
