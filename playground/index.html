@@ -1,21 +1,74 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Playground Stimulus Controller Boilerplate</title>
+    <title>Stimulus HTML5 Validation Controller</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="bundle.js" async></script>
+    <style>
+      .error {
+        color: red;
+      }
+
+      button:disabled {
+        background-color: lightgrey;
+      }
+    </style>
   </head>
   <body>
-    <div data-controller="hello">
-      <input data-target="hello.name" type="text" />
-
-      <button data-action="click->hello#greet">
-        Greet
-      </button>
-
-      <span data-target="hello.output"> </span>
+    <div data-controller="validation" data-validation-disable-submit="false">
+      <form action="">
+        <div class="field">
+          Name* <br />
+          <div class="error"></div>
+          <input type="text" required />
+        </div>
+        <div class="field">
+          <div class="error"></div>
+          Email* <br />
+          <input type="email" required />
+        </div>
+        <!-- <input type="text" data-no-validate="true" /><br /> -->
+        <button data-target="validation.submitButton">Submit</button>
+      </form>
+    </div>
+    <br /><br />no focus on error
+    <div
+      data-controller="validation"
+      data-validation-disable-submit="false"
+      data-validation-focus-on-error="false"
+    >
+      <form action="">
+        <div class="field">
+          Name* <br />
+          <div class="error"></div>
+          <input type="text" required />
+        </div>
+        <div class="field">
+          <div class="error"></div>
+          Email* <br />
+          <input type="email" required />
+        </div>
+        <button data-target="validation.submitButton">Submit</button>
+      </form>
+    </div>
+    <br /><br /><br />
+    <div data-controller="validation">
+      <h3>With disable button</h3>
+      <form action="">
+        <div class="field">
+          Name* <br />
+          <div class="error"></div>
+          <input type="text" required />
+        </div>
+        <div class="field">
+          <div class="error"></div>
+          Email* <br />
+          <input type="email" required />
+        </div>
+        <button data-target="validation.submitButton">Submit</button>
+      </form>
     </div>
   </body>
 </html>

@@ -10,7 +10,7 @@
   "license": "MIT",
   "external": "stimulus",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
+    "start": "webpack-dev-server --mode development --host 0.0.0.0 --open",
     "build": "rollup -c",
     "dev": "rollup -wc",
     "test": "cross-env NODE_ENV=test karma start",
@@ -59,6 +59,6 @@
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-dev-middleware": "^3.6.1",
-    "webpack-dev-server": "^3.2.1"
+    "webpack-dev-server": "^3.4.1"
   }
 }

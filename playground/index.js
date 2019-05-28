@@ -1,5 +1,16 @@
-import { Application } from "stimulus";
-import HelloController from "../src/index";
+import { Application } from "stimulus"
+import Html5ValidationController from "../src/index"
 
-const application = Application.start();
-application.register("hello", HelloController);
+class ValidationController extends Html5ValidationController {
+  display({ el, error }) {
+    const errorField = el.closest(".field").querySelector(".error")
+    if (error) {
+      errorField.textContent = error
+    } else {
+      errorField.textContent = ""
+    }
+  }
+}
+
+const application = Application.start()
+application.register("validation", ValidationController)
