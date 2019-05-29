@@ -7,7 +7,11 @@ export default class extends Controller {
   connect() {
     this.toggleDisableOnSubmitButton(true)
     this.submitButtonTarget.addEventListener("click", this.removeNoValidate)
-    this.validator = new Validator(this.form, this.validationCallback)
+    this.validator = new Validator(
+      this.form,
+      this.validationCallback,
+      this.data.get("debounce")
+    )
   }
 
   disconnect() {
@@ -79,7 +83,7 @@ export default class extends Controller {
     this.toggleDisableOnSubmitButton(error)
 
     if (shouldDisplay) {
-      this.display({ el: event.currentTarget, error })
+      this.display({ el: event.target, error })
     }
   }
 }

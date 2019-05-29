@@ -19,6 +19,7 @@
     "codecov": "codecov"
   },
   "dependencies": {
+    "lodash.debounce": "^4.0.8",
     "stimulus": "^1.1.0"
   },
   "devDependencies": {

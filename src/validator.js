@@ -1,9 +1,11 @@
 import ErrorMessage from "./error"
+const debounce = require("lodash.debounce")
 
 export default class {
-  constructor(form, callback) {
+  constructor(form, callback, debounceMs = 150) {
     this.form = form
     this.callback = callback
+    this.debounceMs = debounceMs
 
     this.allFields().forEach(this.registerField)
   }
@@ -33,12 +35,12 @@ export default class {
       el[action]("blur", this.validateOnBlur)
     }
 
-    el[action]("input", this.validate)
+    el[action]("input", debounce(this.validate, this.debounceMs))
     el[action]("invalid", this.validate)
   }
 
   validateOnBlur = e => {
-    e.currentTarget.dataset.visited = true
+    e.target.dataset.visited = true
 
     this.validate(e)
   }
@@ -47,7 +49,7 @@ export default class {
     e.preventDefault()
 
     this.callback(e, {
-      error: this.errorMessage(e.currentTarget),
+      error: this.errorMessage(e.target),
       shouldDisplay: this.shouldValidate(e),
     })
   }
@@ -57,13 +59,13 @@ export default class {
   }
 
   shouldValidate(e) {
-    const { currentTarget } = e
+    const { target } = e
 
     if (
-      currentTarget.nodeName === "INPUT" &&
-      currentTarget.dataset.visited !== "true" &&
+      target.nodeName === "INPUT" &&
+      target.dataset.visited !== "true" &&
       e.type !== "invalid" &&
-      !currentTarget.validity.valid
+      !target.validity.valid
     ) {
       return false
     }
