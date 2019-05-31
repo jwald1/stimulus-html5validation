@@ -74,7 +74,7 @@ export default class extends Controller {
     }
   }
 
-  validationCallback = (event, { error, shouldDisplay }) => {
+  validationCallback = (event, { error, processedValidation }) => {
     if (event.type === "invalid" && this.data.has("noValidate")) {
       return
     }
@@ -82,7 +82,7 @@ export default class extends Controller {
     this.focusFirstInput(event)
     this.toggleDisableOnSubmitButton(error)
 
-    if (shouldDisplay) {
+    if (processedValidation) {
       this.display({ el: event.target, error })
     }
   }

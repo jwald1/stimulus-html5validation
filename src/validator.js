@@ -24,6 +24,10 @@ export default class {
 
   // private
 
+  inputNeedToWaitForVisited(type) {
+    return ["text", "email", "password", "search", "tel", "url"].includes(type)
+  }
+
   registerDergisterField(el, bool) {
     const action = bool ? "addEventListener" : "removeEventListener"
 
@@ -31,7 +35,7 @@ export default class {
       return
     }
 
-    if (el.nodeName === "INPUT") {
+    if (el.nodeName === "INPUT" && this.inputNeedToWaitForVisited(el.type)) {
       el[action]("blur", this.validateOnBlur)
     }
 
@@ -50,7 +54,7 @@ export default class {
 
     this.callback(e, {
       error: this.errorMessage(e.target),
-      shouldDisplay: this.shouldValidate(e),
+      processedValidation: this.shouldValidate(e),
     })
   }
 
@@ -63,6 +67,7 @@ export default class {
 
     if (
       target.nodeName === "INPUT" &&
+      this.inputNeedToWaitForVisited(target.type) &&
       target.dataset.visited !== "true" &&
       e.type !== "invalid" &&
       !target.validity.valid
